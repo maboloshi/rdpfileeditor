@@ -85,7 +85,7 @@
             <li class="nav-item" v-for="category, catKey in userRdpOptions">
                 <a class="nav-link" href="#"
                     :class="{active: selectedTab == catKey,  'fw-bold': selectedTab == catKey,'text-muted': selectedTab != catKey}"
-                    @click="selectedTab = catKey">{{catKey}}</a>
+                    @click="selectedTab = catKey">{{t(catKey)}}</a>
             </li>
         </ul>
 
@@ -144,6 +144,14 @@
                 typeText: "Text",
                 typeNumber: "Number",
                 typeBinary: "Binary",
+                // Category names
+                Connection: "Connection",
+                Display: "Display",
+                Gateway: "Gateway",
+                Hardware: "Hardware",
+                RemoteApp: "RemoteApp",
+                Session: "Session",
+                Signature: "Signature",
             },
             zh: {
                 title: "RDP 文件编辑器",
@@ -158,6 +166,14 @@
                 typeText: "文本",
                 typeNumber: "数字",
                 typeBinary: "二进制",
+                // Category names
+                Connection: "连接",
+                Display: "显示",
+                Gateway: "网关",
+                Hardware: "硬件",
+                RemoteApp: "远程应用",
+                Session: "会话",
+                Signature: "签名",
             }
         };
 
