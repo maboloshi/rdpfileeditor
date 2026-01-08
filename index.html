@@ -163,12 +163,19 @@
 
         // Helper function to detect browser language
         function detectLanguage() {
-            const browserLang = (navigator.language || navigator.userLanguage || 'en').toString();
-            const langCode = browserLang.split('-')[0];
-            
-            // Check if we support this language
-            if (translations[langCode]) {
-                return langCode;
+            try {
+                const browserLang = navigator.language || navigator.userLanguage;
+                if (!browserLang) {
+                    return 'en';
+                }
+                const langCode = String(browserLang).split('-')[0];
+                
+                // Check if we support this language
+                if (translations[langCode]) {
+                    return langCode;
+                }
+            } catch (error) {
+                console.warn('Error detecting language:', error);
             }
             
             // Default to English
@@ -185,6 +192,7 @@
                     expandedOption: "", // Track expanded option for display
                     selectedTab: "Connection", // Initially selected RDP option category
                     currentLang: detectLanguage(), // Current language
+                    loadError: false, // Track if options failed to load
                 }
             },
 
@@ -224,6 +232,7 @@
 
                 // Fetch RDP options from a JSON file based on current language
                 fetchOptions() {
+                    this.loadError = false;
                     const filename = this.currentLang === 'zh' ? 'rdpoptions.zh.json' : 'rdpoptions.json';
                     fetch(filename)
                         .then((httpResponse) => {
@@ -235,6 +244,7 @@
                         .then((responseData) => {
                             this.allRdpOptions = responseData
                             this.resetOptions()
+                            this.loadError = false;
                         })
                         .catch((error) => {
                             console.error('Error loading RDP options:', error);
@@ -242,14 +252,25 @@
                             if (filename !== 'rdpoptions.json') {
                                 console.log('Falling back to English options');
                                 fetch('rdpoptions.json')
-                                    .then((httpResponse) => httpResponse.json())
+                                    .then((httpResponse) => {
+                                        if (!httpResponse.ok) {
+                                            throw new Error('Failed to load fallback options');
+                                        }
+                                        return httpResponse.json();
+                                    })
                                     .then((responseData) => {
                                         this.allRdpOptions = responseData
                                         this.resetOptions()
+                                        this.loadError = false;
                                     })
                                     .catch((fallbackError) => {
                                         console.error('Error loading fallback options:', fallbackError);
+                                        this.loadError = true;
+                                        alert('Failed to load RDP options. Please refresh the page.');
                                     });
+                            } else {
+                                this.loadError = true;
+                                alert('Failed to load RDP options. Please refresh the page.');
                             }
                         })
                 },
