@@ -85,19 +85,19 @@
             <li class="nav-item" v-for="category, catKey in userRdpOptions">
                 <a class="nav-link" href="#"
                     :class="{active: selectedTab == catKey,  'fw-bold': selectedTab == catKey,'text-muted': selectedTab != catKey}"
-                    @click="selectedTab = catKey">{{t(catKey)}}</a>
+                    @click="selectedTab = catKey">{{category.label}}</a>
             </li>
         </ul>
 
         <div v-for="category, catKey in userRdpOptions" class="mt-3">
 
             <div v-if="selectedTab == catKey" class="row">
-                <div v-for="option, key, index in category" class="col-md-6 col-xl-4">
+                <div v-for="option, key, index in category.options" class="col-md-6 col-xl-4">
                     <div
                         class="d-flex flex-column justify-content-between align-items-center border rounded bg-light p-1 m-1">
                         <div class="w-100 text-center btn" @click="expandedOption = expandedOption == key ? '' : key">
                             <span class="text-capitalize"
-                                :class="{'text-primary': option.value != allRdpOptions[catKey][key].value}">{{ tOption(key) }}</span></a>
+                                :class="{'text-primary': option.value != allRdpOptions[catKey].options[key].value}">{{ option.label }}</span></a>
                         </div>
 
                         <div class="w-100 text-center p-2 pt-0" v-if="expandedOption == key">
@@ -108,13 +108,13 @@
                             <div class="d-flex justify-content-around small my-3">
                                 <span>{{ t('type') }}: {{ fullType(option.type) }}</span>
                                 <span>{{ t('default') }}:
-                                    {{ allRdpOptions[catKey][key].value ? allRdpOptions[catKey][key].value : "(empty)" }}</span>
+                                    {{ allRdpOptions[catKey].options[key].value ? allRdpOptions[catKey].options[key].value : "(empty)" }}</span>
                             </div>
 
                             <div class="w-100 d-flex my-2">
                                 <input class="form-control outline-0" v-model="option.value" :placeholder="t('empty')">
                                 <button class="btn btn-danger ms-2"
-                                    @click="userRdpOptions[catKey][key].value = allRdpOptions[catKey][key].value">{{ t('reset') }}</button>
+                                    @click="userRdpOptions[catKey].options[key].value = allRdpOptions[catKey].options[key].value">{{ t('reset') }}</button>
                             </div>
                         </div>
 
@@ -129,7 +129,7 @@
 
     <!-- Vue script -->
     <script>
-        // Translations object
+        // Translations object (UI elements only)
         const translations = {
             en: {
                 title: "RDP File Editor",
@@ -144,14 +144,6 @@
                 typeText: "Text",
                 typeNumber: "Number",
                 typeBinary: "Binary",
-                // Category names
-                Connection: "Connection",
-                Display: "Display",
-                Gateway: "Gateway",
-                Hardware: "Hardware",
-                RemoteApp: "RemoteApp",
-                Session: "Session",
-                Signature: "Signature",
             },
             zh: {
                 title: "RDP 文件编辑器",
@@ -166,114 +158,6 @@
                 typeText: "文本",
                 typeNumber: "数字",
                 typeBinary: "二进制",
-                // Category names
-                Connection: "连接",
-                Display: "显示",
-                Gateway: "网关",
-                Hardware: "硬件",
-                RemoteApp: "远程应用",
-                Session: "会话",
-                Signature: "签名",
-            }
-        };
-
-        // RDP option name translations
-        const optionNameTranslations = {
-            zh: {
-                // Connection
-                "alternate full address": "备用完整地址",
-                "authentication level": "身份验证级别",
-                "autoreconnect max retries": "自动重新连接最大重试次数",
-                "autoreconnection enabled": "启用自动重新连接",
-                "bandwidthautodetect": "带宽自动检测",
-                "compression": "压缩",
-                "connection type": "连接类型",
-                "domain": "域",
-                "enablecredsspsupport": "启用 CredSSP 支持",
-                "enablerdsaadauth": "启用 RDS AAD 身份验证",
-                "full address": "完整地址",
-                "kdcproxyname": "KDC 代理名称",
-                "negotiate security layer": "协商安全层",
-                "networkautodetect": "网络自动检测",
-                "password 51": "密码 51",
-                "prompt for credentials": "提示输入凭据",
-                "prompt for credentials on client": "在客户端上提示输入凭据",
-                "promptcredentialonce": "仅提示一次凭据",
-                "server port": "服务器端口",
-                "targetisaadjoined": "目标已加入 AAD",
-                "username": "用户名",
-                // Display
-                "allow desktop composition": "允许桌面合成",
-                "allow font smoothing": "允许字体平滑",
-                "bitmapcachepersistenable": "启用位图缓存持久化",
-                "bitmapcachesize": "位图缓存大小",
-                "desktopheight": "桌面高度",
-                "desktop size id": "桌面大小 ID",
-                "desktopscalefactor": "桌面缩放系数",
-                "desktopwidth": "桌面宽度",
-                "disable full window drag": "禁用完整窗口拖动",
-                "disable menu anims": "禁用菜单动画",
-                "disable themes": "禁用主题",
-                "disable wallpaper": "禁用壁纸",
-                "dynamic resolution": "动态分辨率",
-                "enablesuperpan": "启用超级平移",
-                "encode redirected video capture": "编码重定向的视频捕获",
-                "maximizetocurrentdisplays": "最大化到当前显示器",
-                "redirectdirectx": "重定向 DirectX",
-                "screen mode id": "屏幕模式 ID",
-                "selectedmonitors": "选定的监视器",
-                "session bpp": "会话位深度",
-                "singlemoninwindowedmode": "窗口模式下单监视器",
-                "smart sizing": "智能调整大小",
-                "span monitors": "跨越监视器",
-                "superpanaccelerationfactor": "超级平移加速系数",
-                "use multimon": "使用多监视器",
-                "videoplaybackmode": "视频播放模式",
-                "winposstr": "窗口位置字符串",
-                // Gateway
-                "gatewaycredentialssource": "网关凭据源",
-                "gatewayhostname": "网关主机名",
-                "gatewayprofileusagemethod": "网关配置文件使用方法",
-                "gatewayusagemethod": "网关使用方法",
-                // Hardware
-                "audiocapturemode": "音频捕获模式",
-                "audiomode": "音频模式",
-                "audioqualitymode": "音频质量模式",
-                "camerastoredirect": "要重定向的相机",
-                "devicestoredirect": "要重定向的设备",
-                "drivestoredirect": "要重定向的驱动器",
-                "redirected video capture encoding quality": "重定向视频捕获编码质量",
-                "redirectcomports": "重定向 COM 端口",
-                "redirectlocation": "重定向位置",
-                "redirectposdevices": "重定向 POS 设备",
-                "redirectprinters": "重定向打印机",
-                "redirectsmartcards": "重定向智能卡",
-                "usbdevicestoredirect": "要重定向的 USB 设备",
-                // RemoteApp
-                "disableremoteappcapscheck": "禁用 RemoteApp 功能检查",
-                "remoteapplicationcmdline": "远程应用程序命令行",
-                "remoteapplicationfile": "远程应用程序文件",
-                "remoteapplicationexpandcmdline": "展开远程应用程序命令行",
-                "remoteapplicationexpandworkingdir": "展开远程应用程序工作目录",
-                "remoteapplicationicon": "远程应用程序图标",
-                "remoteapplicationmode": "远程应用程序模式",
-                "remoteapplicationname": "远程应用程序名称",
-                "remoteapplicationprogram": "远程应用程序",
-                "workspaceid": "工作区 ID",
-                // Session
-                "administrative session": "管理会话",
-                "alternate shell": "备用 Shell",
-                "disable ctrl+alt+del": "禁用 Ctrl+Alt+Del",
-                "disableconnectionsharing": "禁用连接共享",
-                "displayconnectionbar": "显示连接栏",
-                "keyboardhook": "键盘挂钩",
-                "pinconnectionbar": "固定连接栏",
-                "public mode": "公共模式",
-                "redirectclipboard": "重定向剪贴板",
-                "redirectwebauthn": "重定向 WebAuthn",
-                "shell working directory": "Shell 工作目录",
-                // Signature
-                "signscope": "签名范围"
             }
         };
 
@@ -341,15 +225,6 @@
                     return key;
                 },
 
-                // Translate RDP option names
-                tOption(optionName) {
-                    // Return translated option name if available, otherwise return original
-                    if (this.currentLang === 'zh' && optionNameTranslations.zh[optionName]) {
-                        return optionNameTranslations.zh[optionName];
-                    }
-                    return optionName;
-                },
-
                 // Deep copy function to create a copy of an object/array
                 deepCopy(arr) {
                     return JSON.parse(JSON.stringify(arr))
@@ -403,7 +278,7 @@
                 // Reset user-selected options to default
                 resetOptions() {
                     this.userRdpOptions = this.deepCopy(this.allRdpOptions)
-                    this.userRdpOptions["Connection"]["full address"].value = window.location.hostname
+                    this.userRdpOptions["Connection"].options["full address"].value = window.location.hostname
                 },
 
                 // Format option descriptions with line breaks
@@ -427,10 +302,10 @@
 
                     // Compare and add lines for changed options to the output string
                     for (let catKey in this.userRdpOptions) {
-                        for (let key in this.userRdpOptions[catKey]) {
-                            if (this.userRdpOptions[catKey][key].value !== this.allRdpOptions[catKey][key].value) {
+                        for (let key in this.userRdpOptions[catKey].options) {
+                            if (this.userRdpOptions[catKey].options[key].value !== this.allRdpOptions[catKey].options[key].value) {
                                 outputString +=
-                                    `${key}:${this.userRdpOptions[catKey][key].type}:${this.userRdpOptions[catKey][key].value}\n`;
+                                    `${key}:${this.userRdpOptions[catKey].options[key].type}:${this.userRdpOptions[catKey].options[key].value}\n`;
                             }
                         }
                     }
@@ -442,10 +317,10 @@
                 saveRdpFile() {
                     // Set the filename: The RemoteApp Name if specified, otherwise the Full Address, otherwise RDP File.rdp
                     let filename = "RDP File.rdp"
-                    if (this.userRdpOptions["RemoteApp"]["remoteapplicationname"].value) {
-                        filename = this.userRdpOptions["RemoteApp"]["remoteapplicationname"].value + ".rdp"
-                    } else if (this.userRdpOptions["Connection"]["full address"].value) {
-                        filename = this.userRdpOptions["Connection"]["full address"].value.replace(/\./gm, "-") +
+                    if (this.userRdpOptions["RemoteApp"].options["remoteapplicationname"].value) {
+                        filename = this.userRdpOptions["RemoteApp"].options["remoteapplicationname"].value + ".rdp"
+                    } else if (this.userRdpOptions["Connection"].options["full address"].value) {
+                        filename = this.userRdpOptions["Connection"].options["full address"].value.replace(/\./gm, "-") +
                             ".rdp"
                     }
 
@@ -480,9 +355,9 @@
                             if (rdpFileLine.match(/:/g) && rdpFileLine.match(/:/g).length === 2) {
                                 const rdpFileOption = rdpFileLine.split(":");
                                 for (let catKey in this.userRdpOptions) {
-                                    for (let key in this.userRdpOptions[catKey]) {
+                                    for (let key in this.userRdpOptions[catKey].options) {
                                         if (key == rdpFileOption[0]) {
-                                            this.userRdpOptions[catKey][key].value = rdpFileOption[2]
+                                            this.userRdpOptions[catKey].options[key].value = rdpFileOption[2]
                                         }
                                     }
                                 }
