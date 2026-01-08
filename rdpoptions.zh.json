@@ -1,0 +1,451 @@
+{
+    "Connection": {
+        "alternate full address": {
+            "type": "s",
+            "value": "",
+            "description": "指定要连接到的远程计算机的备用名称或 IP 地址。"
+        },
+        "authentication level": {
+            "type": "i",
+            "value": "2",
+            "description": "确定服务器身份验证失败时应该发生什么。\n\n0 - 如果服务器身份验证失败，无需警告即可连接。\n1 - 如果服务器身份验证失败，不要连接。\n2 - 如果服务器身份验证失败，显示警告并允许用户选择是否连接。\n3 - 不需要服务器身份验证。"
+        },
+        "autoreconnect max retries": {
+            "type": "i",
+            "value": "20",
+            "description": "确定如果连接断开，客户端计算机将尝试重新连接到远程计算机的最大次数。\n注意：远程桌面可以处理的最大值为 200。"
+        },
+        "autoreconnection enabled": {
+            "type": "i",
+            "value": "1",
+            "description": "确定如果连接断开，客户端计算机是否自动尝试重新连接到远程计算机。\n\n0 - 不尝试重新连接。\n1 - 尝试重新连接。"
+        },
+        "bandwidthautodetect": {
+            "type": "i",
+            "value": "1",
+            "description": "启用网络类型自动检测选项。与 networkautodetect 一起使用。另请参阅连接类型。\n\n0 - 不启用自动网络检测选项。\n1 - 启用自动网络检测选项。"
+        },
+        "compression": {
+            "type": "i",
+            "value": "1",
+            "description": "确定连接是否应使用批量压缩。\n\n0 - 不使用批量压缩。\n1 - 使用批量压缩。"
+        },
+        "connection type": {
+            "type": "i",
+            "value": "2",
+            "description": "指定远程桌面会话的预定义性能设置。\n\n1 - 调制解调器（56 Kbps）。\n2 - 低速宽带（256 Kbps - 2 Mbps）。\n3 - 卫星（2 Mbps - 16 Mbps 高延迟）。\n4 - 高速宽带（2 Mbps - 10 Mbps）。\n5 - 广域网（10 Mbps 或更高，高延迟）。\n6 - 局域网（10 Mbps 或更高）。\n7 - 自动带宽检测。需要 bandwidthautodetect。\n\n此设置本身不执行任何操作。在 RDC GUI 中选择时，此选项会更改几个与性能相关的设置（主题、动画、字体平滑等）。这些单独的设置始终覆盖连接类型设置。"
+        },
+        "domain": {
+            "type": "s",
+            "value": "",
+            "description": "指定用户的域名。"
+        },
+        "enablecredsspsupport": {
+            "type": "i",
+            "value": "1",
+            "description": "确定远程桌面是否在可用时使用 CredSSP 进行身份验证。\n\n0 - 即使操作系统支持，也不使用 CredSSP。\n1 - 如果操作系统支持，则使用 CredSSP。"
+        },
+        "enablerdsaadauth": {
+            "type": "i",
+            "value": "0",
+            "description": "确定客户端是否使用 Microsoft Entra ID 向远程 PC 进行身份验证。与 Azure 虚拟桌面一起使用时，这提供单点登录体验。此属性替换属性 targetisaadjoined。\n\n0 - 即使远程 PC 支持，连接也不会使用 Microsoft Entra 身份验证。\n1 - 如果远程 PC 支持，连接将使用 Microsoft Entra 身份验证。"
+        },
+        "full address": {
+            "type": "s",
+            "value": "",
+            "description": "指定要连接到的远程计算机的名称或 IP 地址（和可选端口）。"
+        },
+        "kdcproxyname": {
+            "type": "s",
+            "value": "",
+            "description": "指定 KDC 代理的完全限定域名。"
+        },
+        "negotiate security layer": {
+            "type": "i",
+            "value": "1",
+            "description": "确定是否协商安全级别。\n\n0 - 未启用安全层协商，会话使用安全套接字层 (SSL) 启动。\n1 - 启用安全层协商，会话使用 x.224 加密启动。"
+        },
+        "networkautodetect": {
+            "type": "i",
+            "value": "1",
+            "description": "确定是否使用自动网络带宽检测。需要设置选项 bandwidthautodetect 并与连接类型 7 相关。\n\n0 - 使用自动网络带宽检测。\n1 - 不使用自动网络带宽检测。"
+        },
+        "password 51": {
+            "type": "b",
+            "value": "",
+            "description": "二进制哈希值中的用户密码。"
+        },
+        "prompt for credentials": {
+            "type": "i",
+            "value": "0",
+            "description": "确定连接到先前保存了凭据的远程计算机时，远程桌面连接是否提示输入凭据。\n\n0 - 远程桌面将使用保存的凭据，不会提示输入凭据。\n1 - 远程桌面将提示输入凭据。"
+        },
+        "prompt for credentials on client": {
+            "type": "i",
+            "value": "0",
+            "description": "确定连接到不支持服务器身份验证的服务器时，远程桌面连接是否提示输入凭据。\n\n0 - 远程桌面不会提示输入凭据。\n1 - 远程桌面将提示输入凭据。"
+        },
+        "promptcredentialonce": {
+            "type": "i",
+            "value": "1",
+            "description": "通过 RD 网关连接时，确定 RDC 是否应对 RD 网关和远程计算机使用相同的凭据。\n\n0 - 远程桌面不会使用相同的凭据。\n1 - 远程桌面将对 RD 网关和远程计算机使用相同的凭据。"
+        },
+        "server port": {
+            "type": "i",
+            "value": "3389",
+            "description": "定义远程桌面连接的备用默认端口。\n\n将被附加到服务器名称的任何端口号覆盖。"
+        },
+        "targetisaadjoined": {
+            "type": "i",
+            "value": "0",
+            "description": "允许使用用户名和密码连接到加入 Microsoft Entra 的会话主机。此属性仅适用于非 Windows 客户端和未加入 Microsoft Entra 的本地 Windows 设备。\n\n0 - 对于满足要求的 Windows 设备，连接到加入 Microsoft Entra 的会话主机将成功，但其他连接将失败。\n1 - 连接到加入 Microsoft Entra 的主机将成功，但在连接到会话主机时仅限于输入用户名和密码凭据。\n\n注意：此属性正在被 enablerdsaadauth 替换。"
+        },
+        "username": {
+            "type": "s",
+            "value": "",
+            "description": "指定将用于登录到远程计算机的用户帐户名称。"
+        }
+    },
+    "Display": {
+        "allow desktop composition": {
+            "type": "i",
+            "value": "0",
+            "description": "确定登录到远程计算机时是否允许桌面合成（Aero 所需）。\n\n0 - 在远程会话中禁用桌面合成。\n1 - 允许桌面合成。"
+        },
+        "allow font smoothing": {
+            "type": "i",
+            "value": "0",
+            "description": "确定远程会话中是否可以使用字体平滑。\n\n0 - 在远程会话中禁用字体平滑。\n1 - 允许字体平滑。"
+        },
+        "bitmapcachepersistenable": {
+            "type": "i",
+            "value": "1",
+            "description": "确定位图是否缓存在本地计算机上（基于磁盘的缓存）。位图缓存可以提高远程会话的性能。\n\n0 - 不缓存位图。\n1 - 缓存位图。"
+        },
+        "bitmapcachesize": {
+            "type": "i",
+            "value": "1500",
+            "description": "指定基于内存的位图缓存的大小（以千字节为单位）。最大值为 32000。"
+        },
+        "desktopheight": {
+            "type": "i",
+            "value": "600",
+            "description": "远程会话桌面的高度（以像素为单位）。"
+        },
+        "desktop size id": {
+            "type": "i",
+            "value": "0",
+            "description": "指定远程会话桌面的预定义尺寸。\n\n0 - 640x480。\n1 - 800x600。\n2 - 1024x768。\n3 - 1280x1024。\n4 - 1600x1200。\n\n如果已指定 /w 和 /h，或 desktopwidth 和 desktopheight，则忽略此设置。"
+        },
+        "desktopscalefactor": {
+            "type": "i",
+            "value": "",
+            "description": "指定远程会话的缩放系数，以使内容显示更大。\n\n支持的值：\n以下列表中的数值：100、125、150、175、200、250、300、400、500\n\n注意：desktopscalefactor 属性正在被弃用，并将很快不可用。"
+        },
+        "desktopwidth": {
+            "type": "i",
+            "value": "800",
+            "description": "远程会话桌面的宽度（以像素为单位）。"
+        },
+        "disable full window drag": {
+            "type": "i",
+            "value": "1",
+            "description": "确定将窗口拖动到新位置时是否显示窗口内容。\n\n0 - 拖动时显示窗口内容。\n1 - 拖动时显示窗口轮廓。"
+        },
+        "disable menu anims": {
+            "type": "i",
+            "value": "1",
+            "description": "确定菜单和窗口是否可以在远程会话中以动画效果显示。\n\n0 - 允许菜单和窗口动画。\n1 - 无菜单和窗口动画。"
+        },
+        "disable themes": {
+            "type": "i",
+            "value": "0",
+            "description": "确定登录到远程计算机时是否允许主题。\n\n0 - 允许主题。\n1 - 在远程会话中禁用主题。"
+        },
+        "disable wallpaper": {
+            "type": "i",
+            "value": "1",
+            "description": "确定远程会话中是否显示桌面背景。\n\n0 - 显示壁纸。\n1 - 不显示任何壁纸。"
+        },
+        "dynamic resolution": {
+            "type": "i",
+            "value": "1",
+            "description": "确定调整本地窗口大小时是否自动更新远程会话的分辨率。\n\n0 - 会话分辨率在会话期间保持静态。\n1 - 会话分辨率随着本地窗口的调整大小而更新。"
+        },
+        "enablesuperpan": {
+            "type": "i",
+            "value": "0",
+            "description": "确定是否启用或禁用 SuperPan。SuperPan 允许用户在全屏模式下导航远程桌面而无需滚动条，当远程桌面的尺寸大于当前客户端窗口的尺寸时。用户可以指向窗口边框，桌面视图将自动向该方向滚动。\n\n0 - 不使用 SuperPan。远程会话窗口的大小调整为客户端窗口大小。\n1 - 启用 SuperPan。远程会话窗口的大小调整为通过 /w 和 /h 指定的尺寸，或通过 desktopwidth 和 desktopheight 指定的尺寸。"
+        },
+        "encode redirected video capture": {
+            "type": "i",
+            "value": "1",
+            "description": "启用或禁用重定向视频的编码。\n\n0 - 禁用重定向视频的编码。\n\n1 - 启用重定向视频的编码。"
+        },
+        "maximizetocurrentdisplays": {
+            "type": "i",
+            "value": "0",
+            "description": "确定最大化时远程会话使用哪个显示器进行全屏显示。需要将 use multimon 设置为 1。仅在 Windows 应用和 Windows 远程桌面应用上可用。\n\n0 - 最大化时会话在最初选择的显示器上全屏显示。\n1 - 最大化时会话动态地在会话窗口跨越的显示器上全屏显示。"
+        },
+        "redirectdirectx": {
+            "type": "i",
+            "value": "1",
+            "description": "确定是否为远程会话启用 DirectX。\n\n0 - 不启用 DirectX 渲染。\n1 - 在远程会话中启用 DirectX 渲染。"
+        },
+        "screen mode id": {
+            "type": "i",
+            "value": "2",
+            "description": "确定连接到远程计算机时远程会话窗口是否以全屏显示。\n\n1 - 远程会话将在窗口中显示。\n2 - 远程会话将全屏显示。"
+        },
+        "selectedmonitors": {
+            "type": "s",
+            "value": "",
+            "description": "指定用于远程会话的本地显示器。所选显示器必须是连续的。需要将 use multimon 设置为 1。\n\n以逗号分隔的特定于机器的显示器 ID 列表。您可以通过调用 mstsc.exe /l 来检索 ID。列出的第一个 ID 将设置为会话中的主显示器。默认为所有显示器。"
+        },
+        "session bpp": {
+            "type": "i",
+            "value": "32",
+            "description": "确定连接时远程计算机上的颜色深度（以位为单位）。\n\n8 - 256 色（8 位）。\n15 - 高彩色（15 位）。\n16 - 高彩色（16 位）。\n24 - 真彩色（24 位）。\n32 - 最高质量（32 位）。"
+        },
+        "singlemoninwindowedmode": {
+            "type": "i",
+            "value": "0",
+            "description": "确定退出全屏时多显示器远程会话是否自动切换到单显示器。需要将 use multimon 设置为 1。仅在 Windows 应用和 Windows 远程桌面应用上可用。\n\n0 - 退出全屏时远程会话保留所有显示器。\n1 - 退出全屏时远程会话切换到单显示器。"
+        },
+        "smart sizing": {
+            "type": "i",
+            "value": "0",
+            "description": "确定调整窗口大小时，客户端计算机是否应缩放远程计算机上的内容以适应客户端计算机的窗口大小。\n\n0 - 调整大小时不缩放客户端窗口显示。\n1 - 调整大小时缩放客户端窗口显示。"
+        },
+        "span monitors": {
+            "type": "i",
+            "value": "0",
+            "description": "确定连接到远程计算机时远程会话窗口是否跨越多个监视器。\n\n0 - 未启用监视器跨越。\n1 - 启用监视器跨越。\n\n注意：使用远程桌面连接 7（Windows 7/2008）时，建议使用 use multimon 设置。"
+        },
+        "superpanaccelerationfactor": {
+            "type": "i",
+            "value": "1",
+            "description": "指定在 SuperPan 模式下，客户端每移动一个像素的鼠标，屏幕视图在给定方向上滚动的像素数"
+        },
+        "use multimon": {
+            "type": "i",
+            "value": "0",
+            "description": "确定连接到远程计算机时会话是否使用真正的多监视器支持。\n\n0 - 不启用多监视器支持。\n1 - 启用多监视器支持。"
+        },
+        "videoplaybackmode": {
+            "type": "i",
+            "value": "1",
+            "description": "确定 RDC 是否使用 RDP 高效多媒体流进行视频播放。\n\n0 - 不使用 RDP 高效多媒体流进行视频播放。\n1 - 尽可能使用 RDP 高效多媒体流进行视频播放。"
+        },
+        "winposstr": {
+            "type": "s",
+            "value": "0,3,0,0,800,600",
+            "description": "指定客户端计算机上会话窗口的位置和尺寸。"
+        }
+    },
+    "Gateway": {
+        "gatewaycredentialssource": {
+            "type": "i",
+            "value": "4",
+            "description": "指定应用于验证与 RD 网关连接的凭据。\n\n0 - 请求密码（NTLM）。\n1 - 使用智能卡。\n4 - 允许用户稍后选择。"
+        },
+        "gatewayhostname": {
+            "type": "s",
+            "value": "",
+            "description": "指定 RD 网关的主机名。"
+        },
+        "gatewayprofileusagemethod": {
+            "type": "i",
+            "value": "0",
+            "description": "确定要使用的 RD 网关身份验证方法。\n\n0 - 使用管理员指定的默认配置文件模式。\n1 - 使用显式设置。"
+        },
+        "gatewayusagemethod": {
+            "type": "i",
+            "value": "4",
+            "description": "指定是否以及如何使用远程桌面网关（RD 网关）服务器。\n\n0 - 不使用 RD 网关服务器。\n1 - 始终使用 RD 网关，即使对于本地连接也是如此。\n2 - 如果无法直接连接到远程计算机（即绕过本地地址），则使用 RD 网关。\n3 - 使用默认 RD 网关设置。\n4 - 不使用 RD 网关服务器。\n\n0 和 4 具有相同的效果，但将方法设置为 4 还会在远程桌面用户界面中设置绕过本地地址的选项。"
+        }
+    },
+    "Hardware": {
+        "audiocapturemode": {
+            "type": "i",
+            "value": "0",
+            "description": "确定连接到远程计算机时如何处理在本地计算机上捕获（录制）的声音。\n\n0 - 不从本地计算机捕获音频。\n1 - 从本地计算机捕获音频并发送到远程计算机。"
+        },
+        "audiomode": {
+            "type": "i",
+            "value": "0",
+            "description": "确定连接到远程计算机时如何处理远程计算机上的声音。\n\n0 - 在本地计算机上播放声音。\n1 - 在远程计算机上播放声音。\n2 - 不播放声音。"
+        },
+        "audioqualitymode": {
+            "type": "i",
+            "value": "0",
+            "description": "确定远程会话中播放的音频质量。\n\n0 - 根据可用带宽动态调整音频质量。\n1 - 始终使用中等音频质量。\n2 - 始终使用未压缩的音频质量。"
+        },
+        "camerastoredirect": {
+            "type": "s",
+            "value": "",
+            "description": "配置要重定向的相机。此设置使用分号分隔的启用重定向的相机的 KSCATEGORY_VIDEO_CAMERA 接口列表。"
+        },
+        "devicestoredirect": {
+            "type": "s",
+            "value": "",
+            "description": "确定客户端计算机上哪些受支持的即插即用设备将被重定向并在远程会话中可用。\n\n未指定值 - 不重定向任何受支持的即插即用设备。\n* - 重定向所有受支持的即插即用设备，包括稍后连接的设备。\nDynamicDevices - 重定向稍后连接的任何受支持的即插即用设备。\n一个或多个即插即用设备的硬件 ID - 重定向指定的受支持的即插即用设备。"
+        },
+        "drivestoredirect": {
+            "type": "s",
+            "value": "",
+            "description": "确定客户端计算机上哪些本地磁盘驱动器将被重定向并在远程会话中可用。\n\n未指定值 - 不重定向任何驱动器。\n* - 重定向所有磁盘驱动器，包括稍后连接的驱动器。\nDynamicDrives - 重定向稍后连接的任何驱动器。\n一个或多个驱动器的驱动器和标签 - 重定向指定的驱动器。"
+        },
+        "redirected video capture encoding quality": {
+            "type": "i",
+            "value": "0",
+            "description": "控制编码视频的质量。\n\n0 - 高压缩视频。运动较多时质量可能会下降。\n1 - 中等压缩。\n2 - 低压缩视频，具有高画质。"
+        },
+        "redirectcomports": {
+            "type": "i",
+            "value": "0",
+            "description": "确定客户端计算机上的 COM（串行）端口是否将被重定向并在远程会话中可用。\n\n0 - 本地计算机上的 COM 端口在远程会话中不可用。\n1 - 本地计算机上的 COM 端口在远程会话中可用。"
+        },
+        "redirectlocation": {
+            "type": "i",
+            "value": "0",
+            "description": "确定本地设备的位置是否将被重定向并在远程会话中可用。\n\n0 - 远程会话使用远程计算机的位置。\n1 - 远程会话使用本地设备的位置。"
+        },
+        "redirectposdevices": {
+            "type": "i",
+            "value": "0",
+            "description": "确定连接到客户端计算机的 Microsoft Point of Service (POS) for .NET 设备是否将被重定向并在远程会话中可用。\n\n0 - 本地计算机的 POS 设备在远程会话中不可用。\n1 - 本地计算机的 POS 设备在远程会话中可用。"
+        },
+        "redirectprinters": {
+            "type": "i",
+            "value": "1",
+            "description": "确定在客户端计算机上配置的打印机是否将被重定向并在远程会话中可用。\n\n0 - 本地计算机上的打印机在远程会话中不可用。\n1 - 本地计算机上的打印机在远程会话中可用。"
+        },
+        "redirectsmartcards": {
+            "type": "i",
+            "value": "1",
+            "description": "确定客户端计算机上的智能卡设备是否将被重定向并在远程会话中可用。\n\n0 - 本地计算机上的智能卡设备在远程会话中不可用。\n1 - 本地计算机上的智能卡设备在远程会话中可用。"
+        },
+        "usbdevicestoredirect": {
+            "type": "s",
+            "value": "",
+            "description": "确定连接到支持 RemoteFX USB 重定向的远程会话时，客户端计算机上哪些受支持的 RemoteFX USB 设备将被重定向并在远程会话中可用。\n\n未指定值 - 不重定向任何受支持的 RemoteFX USB 设备。\n* - 重定向所有未被高级重定向机制重定向的受支持的 RemoteFX USB 设备。\n{设备安装类 GUID} - 重定向属于指定设备安装类成员的所有受支持的 RemoteFX USB 设备。\nUSB\\InstanceID - 重定向由给定实例 ID 指定的受支持的 RemoteFX USB 设备。\n-USB\\InstanceID - 不重定向由给定实例 ID 指定的受支持的 RemoteFX USB 设备，即使该设备属于被重定向的设备安装类。"
+        }
+    },
+    "RemoteApp": {
+        "disableremoteappcapscheck": {
+            "type": "i",
+            "value": "0",
+            "description": "指定远程桌面客户端是否应检查远程计算机的 RemoteApp 功能。\n0 - 在登录前检查远程计算机的 RemoteApp 功能。\n1 - 不检查远程计算机的 RemoteApp 功能。注意：连接到配置了 RemoteApp 的 Windows XP SP3、Vista 或 7 计算机时，必须将此设置设置为 1。"
+        },
+        "remoteapplicationcmdline": {
+            "type": "s",
+            "value": "",
+            "description": "RemoteApp 的可选命令行参数。"
+        },
+        "remoteapplicationfile": {
+            "type": "s",
+            "value": "",
+            "description": "指定 RemoteApp 在远程计算机上打开的文件。\n\n注意：要打开本地文件，还必须为（至少）源驱动器启用驱动器重定向。"
+        },
+        "remoteapplicationexpandcmdline": {
+            "type": "i",
+            "value": "1",
+            "description": "确定 RemoteApp 命令行参数中包含的环境变量应该在本地还是远程扩展。\n\n0 - 环境变量应扩展为本地计算机的值。\n1 - 环境变量应在远程计算机上扩展为远程计算机的值。"
+        },
+        "remoteapplicationexpandworkingdir": {
+            "type": "i",
+            "value": "0",
+            "description": "确定 RemoteApp 工作目录参数中包含的环境变量应该在本地还是远程扩展。\n\n0 - 环境变量应扩展为本地计算机的值。\n1 - 环境变量应在远程计算机上扩展为远程计算机的值。\n\n注意：RemoteApp 工作目录通过 shell working directory 参数指定。"
+        },
+        "remoteapplicationicon": {
+            "type": "s",
+            "value": "",
+            "description": "指定在启动 RemoteApp 时在远程桌面界面中显示的图标文件的文件名。默认情况下，RDC 将显示标准的远程桌面图标。\n\n注意：仅支持 .ico 文件。"
+        },
+        "remoteapplicationmode": {
+            "type": "i",
+            "value": "0",
+            "description": "确定连接到远程计算机时是否应启动 RemoteApp。\n\n0 - 使用正常会话，不启动 RemoteApp。\n1 - 连接并启动 RemoteApp。"
+        },
+        "remoteapplicationname": {
+            "type": "s",
+            "value": "",
+            "description": "在启动 RemoteApp 时在远程桌面界面中指定 RemoteApp 的名称。"
+        },
+        "remoteapplicationprogram": {
+            "type": "s",
+            "value": "",
+            "description": "指定 RemoteApp 的别名或可执行文件名。"
+        },
+        "workspaceid": {
+            "type": "s",
+            "value": "",
+            "description": "此设置定义与包含此设置的 RDP 文件关联的 RemoteApp 和桌面 ID。\n\n无"
+        }
+    },
+    "Session": {
+        "administrative session": {
+            "type": "i",
+            "value": "0",
+            "description": "连接到远程计算机的管理会话。\n\n0 - 不使用管理会话。\n1 - 连接到管理会话。"
+        },
+        "alternate shell": {
+            "type": "s",
+            "value": "",
+            "description": "指定连接到远程计算机时自动启动的程序。该值应该是可执行文件的有效路径。\n此设置仅在连接到服务器时有效。"
+        },
+        "disable ctrl+alt+del": {
+            "type": "i",
+            "value": "1",
+            "description": "确定连接到远程计算机后输入凭据之前是否必须按 CTRL+ALT+DELETE。\n\n0 - 登录前需要 CTRL+ALT+DELETE。\n1 - 不需要 CTRL+ALT+DELETE。您可以立即登录。\n\n注意：禁用时，此设置还会延迟自动登录，直到用户按下 CTRL+ALT+DELETE。"
+        },
+        "disableconnectionsharing": {
+            "type": "i",
+            "value": "0",
+            "description": "确定每次启动到同一台计算机并使用相同凭据的 RemoteApp 时是否启动新的终端服务器会话。\n\n0 - 不启动新会话。共享用户的当前活动会话。\n1 - 为 RemoteApp 启动新的登录会话。"
+        },
+        "displayconnectionbar": {
+            "type": "i",
+            "value": "1",
+            "description": "确定处于全屏模式时是否显示连接栏。\n\n0 - 不显示连接栏。\n1 - 显示连接栏。"
+        },
+        "keyboardhook": {
+            "type": "i",
+            "value": "2",
+            "description": "确定连接到远程计算机时如何应用 Windows 键组合。\n\n0 - Windows 键组合应用于本地计算机。\n1 - Windows 键组合应用于远程计算机。\n2 - 仅在全屏模式下应用 Windows 键组合。"
+        },
+        "pinconnectionbar": {
+            "type": "i",
+            "value": "1",
+            "description": "确定在全屏模式下连接时连接栏是否应固定到远程会话顶部。\n\n0 - 连接栏不应固定到远程会话顶部。\n1 - 连接栏应固定到远程会话顶部。"
+        },
+        "public mode": {
+            "type": "i",
+            "value": "0",
+            "description": "确定远程桌面连接是否以公共模式启动。\n\n0 - 远程桌面不会以公共模式启动。\n1 - 远程桌面将以公共模式启动，并且不会在本地机器上保存任何用户数据（凭据、位图缓存、MRU）。"
+        },
+        "redirectclipboard": {
+            "type": "i",
+            "value": "1",
+            "description": "确定客户端计算机上的剪贴板是否将被重定向并在远程会话中可用，反之亦然。\n\n0 - 不重定向剪贴板。\n1 - 重定向剪贴板。"
+        },
+        "redirectwebauthn": {
+            "type": "i",
+            "value": "1",
+            "description": "确定远程计算机上的 WebAuthn 请求是否将重定向到本地计算机，从而允许使用本地身份验证器（例如 Windows Hello for Business 和安全密钥）。\n\n0 - 来自远程会话的 WebAuthn 请求不会发送到本地计算机进行身份验证，必须在远程会话中完成。\n1 - 来自远程会话的 WebAuthn 请求将发送到本地计算机进行身份验证。"
+        },
+        "shell working directory": {
+            "type": "s",
+            "value": "",
+            "description": "如果指定了备用 shell，则使用远程计算机上的工作目录。"
+        }
+    },
+    "Signature": {
+        "signscope": {
+            "type": "s",
+            "value": "",
+            "description": "使用 .rdp 文件签名时为其生成签名的 .rdp 文件设置的逗号分隔列表。"
+        }
+    }
+}

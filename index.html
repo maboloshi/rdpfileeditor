@@ -192,9 +192,15 @@
             methods: {
                 // Set language
                 setLanguage(lang) {
+                    const prevLang = this.currentLang;
                     this.currentLang = lang;
                     localStorage.setItem('rdpeditor_lang', lang);
                     document.documentElement.lang = lang;
+                    
+                    // Reload options if language changed to get translated descriptions
+                    if (prevLang !== lang) {
+                        this.fetchOptions();
+                    }
                 },
 
                 // Translation helper
@@ -216,9 +222,10 @@
                     return JSON.parse(JSON.stringify(arr))
                 },
 
-                // Fetch RDP options from a JSON file
+                // Fetch RDP options from a JSON file based on current language
                 fetchOptions() {
-                    fetch("rdpoptions.json")
+                    const filename = this.currentLang === 'zh' ? 'rdpoptions.zh.json' : 'rdpoptions.json';
+                    fetch(filename)
                         .then((httpResponse) => httpResponse.json())
                         .then((responseData) => {
                             this.allRdpOptions = responseData
