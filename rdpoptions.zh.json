@@ -225,7 +225,7 @@
         "superpanaccelerationfactor": {
             "type": "i",
             "value": "1",
-            "description": "指定在 SuperPan 模式下，客户端每移动一个像素的鼠标，屏幕视图在给定方向上滚动的像素数"
+            "description": "指定在 SuperPan 模式下，客户端每移动一个像素的鼠标，屏幕视图在给定方向上滚动的像素数。"
         },
         "use multimon": {
             "type": "i",

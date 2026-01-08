@@ -226,10 +226,31 @@
                 fetchOptions() {
                     const filename = this.currentLang === 'zh' ? 'rdpoptions.zh.json' : 'rdpoptions.json';
                     fetch(filename)
-                        .then((httpResponse) => httpResponse.json())
+                        .then((httpResponse) => {
+                            if (!httpResponse.ok) {
+                                throw new Error(`Failed to load ${filename}`);
+                            }
+                            return httpResponse.json();
+                        })
                         .then((responseData) => {
                             this.allRdpOptions = responseData
                             this.resetOptions()
+                        })
+                        .catch((error) => {
+                            console.error('Error loading RDP options:', error);
+                            // Fallback to English if translation file fails to load
+                            if (filename !== 'rdpoptions.json') {
+                                console.log('Falling back to English options');
+                                fetch('rdpoptions.json')
+                                    .then((httpResponse) => httpResponse.json())
+                                    .then((responseData) => {
+                                        this.allRdpOptions = responseData
+                                        this.resetOptions()
+                                    })
+                                    .catch((fallbackError) => {
+                                        console.error('Error loading fallback options:', fallbackError);
+                                    });
+                            }
                         })
                 },
 
