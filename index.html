@@ -47,26 +47,33 @@
 <body>
 
     <div id="app" class="py-4 container-xl">
-        <div class="mb-5 text-center">
+        <div class="mb-5 text-center position-relative">
 
-            <p class="display-5"><img src="rdp.png" class="rdpicon"> RDP File Editor</p>
-            <span class="lead">Create and edit RDP files.</span>
+            <p class="display-5"><img src="rdp.png" class="rdpicon"> {{ t('title') }}</p>
+            <span class="lead">{{ t('subtitle') }}</span>
+            
+            <div class="position-absolute top-0 end-0">
+                <select class="form-select form-select-sm" v-model="currentLang" @change="setLanguage(currentLang)">
+                    <option value="en">English</option>
+                    <option value="zh">中文</option>
+                </select>
+            </div>
         </div>
 
         <div class="position-relative mx-1">
 
-            <div class="position-absolute rdptop almostleft fw-bold text-success">RDP File</div>
+            <div class="position-absolute rdptop almostleft fw-bold text-success">{{ t('rdpFile') }}</div>
 
             <div class="position-absolute rdptop almostright">
             </div>
 
             <div class="position-absolute rdpbottom almostleft ">
-                <div class="btn btn-outline-secondary bg-white text-muted btn-sm me-2" @click="clickLoad()">Load</div>
-                <div class="btn btn-outline-secondary bg-white text-muted btn-sm" @click="resetOptions()">Reset</div>
+                <div class="btn btn-outline-secondary bg-white text-muted btn-sm me-2" @click="clickLoad()">{{ t('load') }}</div>
+                <div class="btn btn-outline-secondary bg-white text-muted btn-sm" @click="resetOptions()">{{ t('reset') }}</div>
             </div>
 
             <div class="position-absolute rdpbottom almostright">
-                <div class="btn btn-success btn-sm" @click="saveRdpFile()">Save</div>
+                <div class="btn btn-success btn-sm" @click="saveRdpFile()">{{ t('save') }}</div>
             </div>
 
             <div class="font-monospace border p-4 mb-5">
@@ -99,15 +106,15 @@
                             </div>
 
                             <div class="d-flex justify-content-around small my-3">
-                                <span>Type: {{ fullType(option.type) }}</span>
-                                <span>Default:
+                                <span>{{ t('type') }}: {{ fullType(option.type) }}</span>
+                                <span>{{ t('default') }}:
                                     {{ allRdpOptions[catKey][key].value ? allRdpOptions[catKey][key].value : "(empty)" }}</span>
                             </div>
 
                             <div class="w-100 d-flex my-2">
-                                <input class="form-control outline-0" v-model="option.value" placeholder="empty">
+                                <input class="form-control outline-0" v-model="option.value" :placeholder="t('empty')">
                                 <button class="btn btn-danger ms-2"
-                                    @click="userRdpOptions[catKey][key].value = allRdpOptions[catKey][key].value">Reset</button>
+                                    @click="userRdpOptions[catKey][key].value = allRdpOptions[catKey][key].value">{{ t('reset') }}</button>
                             </div>
                         </div>
 
@@ -122,6 +129,52 @@
 
     <!-- Vue script -->
     <script>
+        // Translations object
+        const translations = {
+            en: {
+                title: "RDP File Editor",
+                subtitle: "Create and edit RDP files.",
+                rdpFile: "RDP File",
+                load: "Load",
+                reset: "Reset",
+                save: "Save",
+                type: "Type",
+                default: "Default",
+                empty: "empty",
+                typeText: "Text",
+                typeNumber: "Number",
+                typeBinary: "Binary",
+            },
+            zh: {
+                title: "RDP 文件编辑器",
+                subtitle: "创建和编辑 RDP 文件。",
+                rdpFile: "RDP 文件",
+                load: "加载",
+                reset: "重置",
+                save: "保存",
+                type: "类型",
+                default: "默认",
+                empty: "空",
+                typeText: "文本",
+                typeNumber: "数字",
+                typeBinary: "二进制",
+            }
+        };
+
+        // Helper function to detect browser language
+        function detectLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0];
+            
+            // Check if we support this language
+            if (translations[langCode]) {
+                return langCode;
+            }
+            
+            // Default to English
+            return 'en';
+        }
+
         // Vue application definition
         const vueApp = {
             // Data properties for the application
@@ -131,11 +184,24 @@
                     userRdpOptions: {}, // Store user-selected RDP options
                     expandedOption: "", // Track expanded option for display
                     selectedTab: "Connection", // Initially selected RDP option category
+                    currentLang: detectLanguage(), // Current language
                 }
             },
 
             // Methods for handling data manipulation and user interactions
             methods: {
+                // Set language
+                setLanguage(lang) {
+                    this.currentLang = lang;
+                    localStorage.setItem('rdpeditor_lang', lang);
+                    document.documentElement.lang = lang;
+                },
+
+                // Translation helper
+                t(key) {
+                    return translations[this.currentLang][key] || key;
+                },
+
                 // Deep copy function to create a copy of an object/array
                 deepCopy(arr) {
                     return JSON.parse(JSON.stringify(arr))
@@ -165,9 +231,9 @@
                 // Convert short type codes to full type names
                 fullType(shortType) {
                     const types = {
-                        "s": "Text",
-                        "i": "Number",
-                        "b": "Binary"
+                        "s": this.t('typeText'),
+                        "i": this.t('typeNumber'),
+                        "b": this.t('typeBinary')
                     }
                     return types[shortType]
                 },
@@ -255,7 +321,14 @@
 
             // Lifecycle hook to fetch options when the component is mounted
             mounted() {
-                this.fetchOptions()
+                // Check for saved language preference
+                const savedLang = localStorage.getItem('rdpeditor_lang');
+                if (savedLang && translations[savedLang]) {
+                    this.currentLang = savedLang;
+                }
+                this.setLanguage(this.currentLang);
+                
+                this.fetchOptions();
             }
         }
 
