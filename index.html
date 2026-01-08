@@ -53,7 +53,7 @@
             <span class="lead">{{ t('subtitle') }}</span>
             
             <div class="position-absolute top-0 end-0">
-                <select class="form-select form-select-sm" v-model="currentLang" @change="setLanguage(currentLang)">
+                <select class="form-select form-select-sm" v-model="currentLang" @change="setLanguage(currentLang)" aria-label="Select language">
                     <option value="en">English</option>
                     <option value="zh">中文</option>
                 </select>
@@ -163,7 +163,7 @@
 
         // Helper function to detect browser language
         function detectLanguage() {
-            const browserLang = navigator.language || navigator.userLanguage;
+            const browserLang = navigator.language || navigator.userLanguage || 'en';
             const langCode = browserLang.split('-')[0];
             
             // Check if we support this language
@@ -199,7 +199,12 @@
 
                 // Translation helper
                 t(key) {
-                    return translations[this.currentLang][key] || key;
+                    const lang = translations[this.currentLang];
+                    if (!lang) {
+                        // Fallback to English if current language is not found
+                        return translations.en[key] || key;
+                    }
+                    return lang[key] || key;
                 },
 
                 // Deep copy function to create a copy of an object/array
